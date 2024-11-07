@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.TalkMapper">
+
+    <select id="selectBackTalkList" resultType="com.kramrs.model.vo.response.TalkBackResp">
+        SELECT
+        t.id,
+        nickname,
+        avatar,
+        talk_content,
+        images,
+        t.is_top,
+        t.status,
+        t.create_time
+        FROM
+        t_talk t
+        INNER JOIN t_user u ON t.user_id = u.id
+        <where>
+            <if test="param.status != null">
+                t.status = #{param.status}
+            </if>
+        </where>
+        ORDER BY
+        t.is_top DESC,
+        t.id DESC
+        LIMIT #{param.current},#{param.size}
+    </select>
+
+    <select id="selectTalkBackById" resultType="com.kramrs.model.vo.response.TalkBackInfoResp">
+        SELECT id,
+               talk_content,
+               images,
+               is_top,
+               status
+        FROM t_talk
+        WHERE id = #{talkId}
+    </select>
+
+    <select id="selectTalkById" resultType="com.kramrs.model.vo.response.TalkResp">
+        SELECT t.id,
+               nickname,
+               avatar,
+               talk_content,
+               is_top,
+               images,
+               t.create_time
+        FROM t_talk t
+                 INNER JOIN t_user u ON t.user_id = u.id
+        WHERE t.id = #{talkId}
+          AND t.status = 1
+    </select>
+
+    <select id="selectTalkList" resultType="com.kramrs.model.vo.response.TalkResp">
+        SELECT t.id,
+               nickname,
+               avatar,
+               talk_content,
+               images,
+               t.is_top,
+               t.create_time
+        FROM t_talk t
+                 INNER JOIN t_user u ON t.user_id = u.id
+        WHERE t.status = 1
+        ORDER BY t.is_top DESC,
+                 t.id DESC
+            LIMIT #{param.current}, #{param.size}
+    </select>
+</mapper>

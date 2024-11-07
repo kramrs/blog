@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.VisitLogMapper">
+
+    <delete id="deleteVisitLog">
+        delete
+        from t_visit_log
+        where create_time &lt;= #{endTime}
+    </delete>
+
+    <select id="selectVisitLogList" resultType="com.kramrs.entity.VisitLog">
+        SELECT
+        tvl.id,
+        page,
+        ip_address,
+        ip_source,
+        os,
+        browser,
+        create_time
+        FROM
+        ( SELECT id FROM t_visit_log
+        <where>
+            <if test="param.keyword != null and param.keyword != ''">
+                page like concat('%',#{param.keyword},'%')
+            </if>
+        </where>
+        ORDER BY id DESC LIMIT #{param.current},#{param.size} ) temp
+        LEFT JOIN t_visit_log tvl ON temp.id = tvl.id
+    </select>
+
+    <select id="selectUserViewList" resultType="com.kramrs.model.vo.response.UserViewResp">
+        select count(distinct ip_address)           as uv,
+               count(create_time)                   as pv,
+               DATE_FORMAT(create_time, '%Y-%m-%d') as `date`
+        from t_visit_log
+        where create_time &gt; #{startTime}
+          AND create_time &lt;= #{endTime}
+        group by DATE_FORMAT(create_time, '%Y-%m-%d')
+    </select>
+</mapper>

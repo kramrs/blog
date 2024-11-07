@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.FriendMapper">
+
+    <select id="selectFriendVOList" resultType="com.kramrs.model.vo.response.FriendResp">
+        SELECT id, `name`, color, url, avatar, introduction
+        FROM t_friend
+    </select>
+
+    <select id="selectFriendBackVOList" resultType="com.kramrs.model.vo.response.FriendBackResp">
+        SELECT id, `name`, color, avatar, url, introduction, create_time
+        FROM t_friend
+        <where>
+            <if test="param.keyword != null and param.keyword != ''">
+                `name` like concat('%',#{param.keyword},'%')
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{param.current},#{param.size}
+    </select>
+
+</mapper>

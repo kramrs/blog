@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.RoleMapper">
+    <select id="selectRoleListByUserId" resultType="java.lang.String">
+        SELECT r.id
+        FROM t_role r
+                 INNER JOIN t_user_role ur ON r.id = ur.role_id
+        WHERE ur.user_id = #{userId}
+          AND r.is_disable = 0
+    </select>
+
+    <select id="selectBackRoleCount" resultType="java.lang.Long">
+        SELECT
+        COUNT(id)
+        FROM
+        t_role
+        <where>
+            <if test="param.keyword != null and para.keyword != ''">
+                role_name like concat('%',#{param.keyword},'%')
+            </if>
+            <if test="param.isDisable != null">
+                and is_disable = #{param.isDelete}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBackRoleList" resultType="com.kramrs.model.vo.response.RoleResp">
+        SELECT id,
+        role_name,
+        role_desc,
+        is_disable,
+        create_time
+        FROM t_role
+        <where>
+            <if test="param.keyword != null and para.keyword != ''">
+                role_name like concat('%',#{param.keyword},'%')
+            </if>
+            <if test="param.isDisable != null">
+                and is_disable = #{param.isDelete}
+            </if>
+        </where>
+        ORDER BY id
+        LIMIT #{param.current},#{param.size}
+    </select>
+
+    <select id="selectUserRoleList" resultType="com.kramrs.model.vo.response.UserRoleResp">
+        select id, role_name
+        from t_role
+    </select>
+</mapper>

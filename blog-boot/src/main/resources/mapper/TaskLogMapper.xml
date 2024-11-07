@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.TaskLogMapper">
+    <select id="selectTaskLogCount" resultType="java.lang.Long">
+        SELECT COUNT(*) from t_task_log
+        <where>
+            <if test="param.keyword != null and param.keyword != ''">
+                AND task_name like concat('%', #{param.keyword}, '%')
+            </if>
+            <if test="param.taskGroup != null and param.taskGroup != ''">
+                AND task_group like concat('%', #{param.taskGroup}, '%')
+            </if>
+            <if test="param.status != null">
+                AND status = #{param.status}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTaskLogRespList" resultType="com.kramrs.model.vo.response.TaskLogResp">
+        SELECT * from t_task_log
+        <where>
+            <if test="param.keyword != null and param.keyword != ''">
+                AND task_name like concat('%', #{param.keyword}, '%')
+            </if>
+            <if test="param.taskGroup != null and param.taskGroup != ''">
+                AND task_group like concat('%', #{param.taskGroup}, '%')
+            </if>
+            <if test="param.status != null">
+                AND status = #{param.status}
+            </if>
+        </where>
+        ORDER BY create_time desc
+        LIMIT #{param.current},#{param.size}
+    </select>
+</mapper>

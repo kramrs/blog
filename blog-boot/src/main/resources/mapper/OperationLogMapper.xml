@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.OperationLogMapper">
+
+    <select id="selectOperationLogVOList" resultType="com.kramrs.model.vo.response.OperationLogResp">
+        SELECT
+        tol.id,
+        `module`,
+        uri,
+        type,
+        `name`,
+        description,
+        method,
+        params,
+        `data`,
+        nickname,
+        ip_address,
+        ip_source,
+        times,
+        create_time
+        FROM
+        ( SELECT id FROM t_operation_log
+        <where>
+            <if test="param.optModule != null and param.optModule != ''">
+                `module` like concat('%',#{param.optModule},'%')
+            </if>
+            <if test="param.keyword != null and param.keyword != ''">
+                OR description like concat('%',#{param.keyword},'%')
+            </if>
+        </where>
+        ORDER BY id DESC LIMIT #{param.current},#{param.size} ) temp
+        INNER JOIN t_operation_log tol ON temp.id = tol.id
+    </select>
+
+</mapper>

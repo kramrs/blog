@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.TaskMapper">
+
+    <select id="selectTaskCount" resultType="java.lang.Long">
+        select count(id)
+        from t_task
+        <where>
+            <if test="param.keyword != null and param.keyword != ''">
+                and task_name like concat('%',#{param.keyword},'%')
+            </if>
+            <if test="param.status != null">
+                and status = #{param.status}
+            </if>
+            <if test="param.taskGroup != null and param.taskGroup != ''">
+                and task_group like concat('%',#{param.taskGroup},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTaskList" resultType="com.kramrs.model.vo.response.TaskBackResp">
+        select id,task_name,task_group,invoke_target,cron_expression,misfire_policy,concurrent,status,remark,create_time
+        from t_task
+        <where>
+            <if test="param.keyword != null and param.keyword != ''">
+                and task_name like concat('%',#{param.keyword},'%')
+            </if>
+            <if test="param.status != null">
+                and status = #{param.status}
+            </if>
+            <if test="param.taskGroup != null and param.taskGroup != ''">
+                and task_group like concat('%',#{param.taskGroup},'%')
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{param.current},#{param.size}
+    </select>
+</mapper>

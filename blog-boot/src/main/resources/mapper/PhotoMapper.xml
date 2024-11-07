@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kramrs.mapper.PhotoMapper">
+
+    <select id="selectBackPhotoList" resultType="com.kramrs.model.vo.response.PhotoBackResp">
+        SELECT id, photo_name, photo_desc, photo_url
+        FROM t_photo
+        <where>
+            <if test="param.albumId != null">
+                album_id = #{param.albumId}
+            </if>
+        </where>
+        LIMIT #{param.current},#{param.size}
+    </select>
+
+    <select id="selectPhotoVOList" resultType="com.kramrs.model.vo.response.PhotoResp">
+        SELECT id, photo_url
+        FROM t_photo
+        WHERE album_id = #{albumId}
+    </select>
+
+</mapper>

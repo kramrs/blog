@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Kramrs's blog
+  profiles:
+    active: @profile.active@
