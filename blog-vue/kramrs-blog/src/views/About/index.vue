@@ -10,13 +10,14 @@
 			<div class="avatar-box">
 				<img class="author-avatar" :src="blog.blogInfo.siteConfig.authorAvatar"/>
 			</div>
-			<v-md-preview class="md" :text="blog.blogInfo.siteConfig.aboutMe"></v-md-preview>
+			<MdPreview editorId="preview-only" :modelValue="blog.blogInfo.siteConfig.aboutMe"/>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import {useBlogStore} from "@/store";
+import {MdPreview} from "md-editor-v3";
 
 const blog = useBlogStore();
 </script>
