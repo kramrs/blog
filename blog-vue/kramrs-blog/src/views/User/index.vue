@@ -1,6 +1,6 @@
 <template>
 	<div class="page-header">
-		<h1 class="page-title">说说</h1>
+		<h1 class="page-title">个人中心</h1>
 		<img class="page-cover" :src="blog.blogInfo.siteConfig.aboutWallpaper"
 			 alt="">
 		<Waves></Waves>
