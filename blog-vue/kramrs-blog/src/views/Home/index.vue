@@ -19,8 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import {getBlogInfo, report} from "@/api/blogInfo";
-import {useAppStore, useBlogStore} from "@/store";
+import {useAppStore} from "@/store";
 import ArticleItem from "@/views/Article/ArticleItem.vue";
 import Brand from "./Brand/index.vue";
 import Images from "./Swiper/Images.vue";
@@ -28,12 +27,6 @@ import Recommend from "./Swiper/Recommend.vue";
 import TalkSwiper from "./Swiper/TalkSwiper.vue";
 
 const app = useAppStore();
-const blog = useBlogStore();
-onMounted(async () => {
-	const res = await getBlogInfo();
-	blog.setBlogInfo(res.data.data);
-	report();
-})
 </script>
 
 <style lang="scss" scoped>
