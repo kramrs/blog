@@ -1,6 +1,8 @@
 package com.kramrs.websocket;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kramrs.entity.ChatRecord;
@@ -19,9 +21,7 @@ import javax.websocket.server.HandshakeRequest;
 import javax.websocket.server.ServerEndpoint;
 import javax.websocket.server.ServerEndpointConfig;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -64,7 +64,7 @@ public class WebsocketService {
                 String ipAddress = request.getHeaders().get(IP.toLowerCase()).get(0);
                 config.getUserProperties().put(IP, ipAddress);
             } catch (Exception e) {
-                config.getUserProperties().put(IP, "未知ip");
+                config.getUserProperties().put(IP, "未知ip" + "-" + RandomUtil.randomNumbers(5));
             }
         }
     }
@@ -197,10 +197,16 @@ public class WebsocketService {
         // 获取聊天历史记录
         List<ChatRecord> chatRecordList = chatRecordMapper.selectList(new LambdaQueryWrapper<ChatRecord>()
                 .ge(ChatRecord::getCreateTime, DateUtil.offsetDay(new Date(), -1)));
+        String ipSource;
+        if (Validator.isIpv4(ipAddress) || Validator.isIpv6(ipAddress)) {
+            ipSource = IpUtils.getIpSource(ipAddress);
+        } else {
+            ipSource = "未知来源";
+        }
         return ChatRecordDTO.builder()
                 .chatRecordList(chatRecordList)
                 .ipAddress(ipAddress)
-                .ipSource(IpUtils.getIpSource(ipAddress))
+                .ipSource(ipSource)
                 .build();
     }
 }
