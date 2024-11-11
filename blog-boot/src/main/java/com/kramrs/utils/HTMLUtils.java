@@ -1,6 +1,7 @@
 package com.kramrs.utils;
 
 import com.github.houbb.sensitive.word.bs.SensitiveWordBs;
+import com.kramrs.sensitive.MyDdWordAllow;
 
 /**
  * @Author: kramrs
@@ -19,6 +20,7 @@ public class HTMLUtils {
             .enableNumCheck(false)
             .enableEmailCheck(false)
             .enableUrlCheck(false)
+            .wordAllow(new MyDdWordAllow())
             .init();
 
     /**
