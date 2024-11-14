@@ -6,5 +6,5 @@
 import iFrame from '@/components/iFrame/index.vue'
 import {ref} from 'vue';
 
-const url = ref(window.location.origin + "/doc.html")
+const url = ref(window.location.origin + "/api/doc.html");
 </script>
