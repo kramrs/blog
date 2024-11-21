@@ -8,6 +8,10 @@
 				{{ obj.output }}
 				<span class="easy-typed-cursor">|</span>
 			</div>
+			<!-- 一句话出处 -->
+			<div class="from">
+				{{ titleFrom }}
+			</div>
 		</div>
 		<!-- 波浪 -->
 		<Waves></Waves>
@@ -19,6 +23,7 @@
 <script setup lang="ts">
 import {useBlogStore} from "@/store";
 import EasyTyper from "easy-typer-js";
+import axios from "axios";
 
 const blog = useBlogStore();
 const obj = reactive({
@@ -31,6 +36,7 @@ const obj = reactive({
 	backSpeed: 100,
 	sentencePause: false,
 });
+const titleFrom = ref("");
 const brandRef = ref<HTMLElement>();
 const scrollDown = () => {
 	nextTick(() => {
@@ -41,20 +47,19 @@ const scrollDown = () => {
 	});
 };
 const fetchData = () => {
-	fetch("https://v1.hitokoto.cn")
-		.then((res) => {
-			return res.json();
-		})
-		.then(({hitokoto}) => {
+	axios.get('https://v1.hitokoto.cn')
+		.then(({data}) => {
+			titleFrom.value = "—— " + data.from;
 			new EasyTyper(
 				obj,
-				hitokoto,
+				data.hitokoto,
 				() => {
 				},
 				() => {
 				}
 			);
-		});
+		})
+		.catch(console.error);
 };
 onMounted(() => {
 	fetchData();
@@ -91,6 +96,10 @@ onMounted(() => {
 	.title {
 		letter-spacing: 0.1em;
 	}
+
+	.from {
+		align-self: flex-end;
+	}
 }
 
 .easy-typed-cursor {
@@ -119,6 +128,9 @@ onMounted(() => {
 @media (min-width: 760px) {
 	.title {
 		font-size: 1.5rem;
+	}
+	.from {
+		font-size: 1.2rem;
 	}
 }
 
