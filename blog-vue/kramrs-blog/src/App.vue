@@ -24,21 +24,17 @@
 </template>
 
 <script setup lang="ts">
-import {getBlogInfo, report} from "@/api/blogInfo";
-import {useBlogStore} from "@/store";
+import {report} from "@/api/blogInfo";
 
-const blog = useBlogStore();
-onMounted(async () => {
+onMounted(() => {
 	console.log(
 		"%c Kramrs's blog %c By Kramrs %c",
 		"background:#e9546b ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff; padding:5px 0;",
 		"background:#ec8c69 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #000; padding:5px 0;",
 		"background:transparent"
 	);
-	const res = await getBlogInfo();
-	blog.setBlogInfo(res.data.data);
 	report();
-})
+});
 </script>
 
 <style scoped>

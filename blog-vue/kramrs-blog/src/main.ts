@@ -13,6 +13,7 @@ import '@vavt/cm-extension/dist/previewTheme/arknights.css';
 import MarkExtension from "markdown-it-mark";
 import Anchor from "markdown-it-anchor";
 import LinkAttr from "markdown-it-link-attributes";
+import {blogInit} from "@/utils/blogInit";
 
 async function setupApp() {
 	setupAssets();
@@ -30,6 +31,8 @@ async function setupApp() {
 	setupViewer(app);
 
 	await setupRouter(app);
+
+	await blogInit();
 
 	app.mount("#app");
 

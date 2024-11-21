@@ -1,6 +1,6 @@
-import { App } from "vue";
-import { createRouter, createWebHistory } from "vue-router";
-import { routes } from "./routes";
+import {App} from "vue";
+import {createRouter, createWebHistory} from "vue-router";
+import {routes} from "./routes";
 
 export const router = createRouter({
 	history: createWebHistory(),
@@ -15,7 +15,7 @@ export const router = createRouter({
 			return savedPosition;
 		}
 		// 没有记录的滚动位置，则滚动到页面顶部
-		return { top: 0 };
+		return {top: 0};
 	},
 });
 

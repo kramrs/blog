@@ -1,6 +1,5 @@
-
-import type { ProxyOptions } from "vite";
-import { createServiceConfig } from "../../src/utils/service";
+import type {ProxyOptions} from "vite";
+import {createServiceConfig} from "../../src/utils/service";
 
 /**
  * 设置网络代理
@@ -14,9 +13,9 @@ export function createViteProxy(env: Env.ImportMeta) {
 		return undefined;
 	}
 
-	const { baseURL, proxyPattern } = createServiceConfig(env);
+	const {baseURL, proxyPattern} = createServiceConfig(env);
 
-	const proxy: Record<string, ProxyOptions> = createProxyItem({ baseURL, proxyPattern });
+	const proxy: Record<string, ProxyOptions> = createProxyItem({baseURL, proxyPattern});
 
 	return proxy;
 }
