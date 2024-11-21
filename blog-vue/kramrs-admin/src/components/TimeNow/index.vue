@@ -17,7 +17,6 @@ const time = ref(dayjs().format('YYYY/MM/DD HH:mm:ss'));
 const text = computed(() => {
 
   const weekday = dayjs().day();
-  console.log('日期变化·111111' + `${time.value} ${weekNames['zh-CN'][weekday > 0 ? weekday - 1 : 6]}`);
   return `${time.value} ${weekNames['zh-CN'][weekday > 0 ? weekday - 1 : 6]}`;
 });
 
