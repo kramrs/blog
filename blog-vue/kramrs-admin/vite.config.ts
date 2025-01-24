@@ -47,7 +47,7 @@ export default defineConfig({
         proxy: {
             "/api": {
                 // target: "http://localhost:8090",
-                target: "https://www.qiuyu.wiki/api",
+                target: "https://www.kramrs.space/api",
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ""),
             },

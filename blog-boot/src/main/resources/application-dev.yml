@@ -84,7 +84,7 @@ spring:
     password:
 # 博客链接
 blog:
-  url: https://www.qiuyu.wiki/
+  url: https://www.kramrs.space/
 # 线程池配置
 thread:
   pool:
@@ -187,20 +187,20 @@ oauth:
     client-id: 1324324
     client-secret: abgffdsfasdf
     grant_type: authorization_code
-    redirect-uri: https://www.qiuyu.wiki/oauth/login/gitee
+    redirect-uri: https://www.kramrs.space/oauth/login/gitee
     access-token-url: https://gitee.com/oauth/token
     user-info-url: https://gitee.com/api/v5/user?access_token={access_token}
   github:
     client-id: 1324324
     client-secret: abgffdsfasdf
-    redirect-url: https://www.qiuyu.wiki/oauth/login/github
+    redirect-url: https://www.kramrs.space/oauth/login/github
     access-token-url: https://github.com/login/oauth/access_token
     user-info-url: https://api.github.com/user
   qq:
     app-id: 1324324
     app-key: abgffdsfasdf
     grant_type: authorization_code
-    redirect-url: https://www.qiuyu.wiki/oauth/login/qq
+    redirect-url: https://www.kramrs.space/oauth/login/qq
     access-token-url: https://graph.qq.com/oauth2.0/token
     user-openid-url: https://graph.qq.com/oauth2.0/me
     user-info-url: https://graph.qq.com/user/get_user_info

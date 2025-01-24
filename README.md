@@ -1,8 +1,8 @@
 ## 博客介绍
 
 <p align="center">
-  <a href="https://www.qiuyu.wiki">
-    <img src="https://picture.qiuyu.wiki/me/avatar.jpg" alt="Kramrs's blog" style="border-radius: 50%; height: 160px;">
+  <a href="https://www.kramrs.space">
+    <img src="https://picture.kramrs.space/me/avatar.jpg" alt="Kramrs's blog" style="border-radius: 50%; height: 160px;">
   </a>
 </p>
 
@@ -26,11 +26,11 @@
 
 ## 在线地址
 
-**项目链接：** [www.qiuyu.wiki](https://www.qiuyu.wiki)
+**项目链接：** [www.kramrs.space](https://www.kramrs.space)
 
 **Github 地址：** [https://github.com/kramrs/blog](https://github.com/kramrs/blog)
 
-**接口文档：** https://www.qiuyu.wiki/api/doc.html
+**接口文档：** https://www.kramrs.space/api/doc.html
 
 ## 本地运行
 
@@ -90,8 +90,8 @@ ElasticSearch + RabbitMQ + Canal
 
 ## 项目截图
 
-![](https://picture.qiuyu.wiki/show/1.png)
-![](https://picture.qiuyu.wiki/show/2.png)
+![](https://picture.kramrs.space/show/1.png)
+![](https://picture.kramrs.space/show/2.png)
 
 ## 项目总结
 

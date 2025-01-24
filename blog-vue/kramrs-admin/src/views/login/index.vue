@@ -114,7 +114,7 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("https://picture.qiuyu.wiki/config/5a08159479ba344dec5813e61fb6f79c.png");
+  background-image: url("https://picture.kramrs.space/config/5a08159479ba344dec5813e61fb6f79c.png");
   background-size: cover;
 }
 

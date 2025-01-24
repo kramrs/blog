@@ -60,7 +60,7 @@ import {computed} from "vue";
 const {app, user} = useStore();
 const device = computed(() => app.device);
 const openHome = () => {
-  window.open("https://www.qiuyu.wiki");
+  window.open("https://www.kramrs.space");
 };
 const handleCommand = (command: string) => {
   switch (command) {

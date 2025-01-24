@@ -2,7 +2,7 @@
 	<div v-if="blog.blogInfo.siteConfig.isChat">
 		<div class="chat-container" v-show="show">
 			<div class="chat-header">
-				<img width="32" height="32" src="https://picture.qiuyu.wiki/common/chat.png"/>
+				<img width="32" height="32" src="https://picture.kramrs.space/common/chat.png"/>
 				<div style="margin-left:12px">
 					<div>聊天室</div>
 					<div style="font-size:12px">当前{{ onlineCount }}人在线</div>
@@ -38,7 +38,7 @@
 		</div>
 		<div class="chat-btn" @click="handleOpen">
 			<span class="unread" v-if="unreadCount > 0">{{ unreadCount }}</span>
-			<img src="https://picture.qiuyu.wiki/common/room.png" alt="">
+			<img src="https://picture.kramrs.space/common/room.png" alt="">
 		</div>
 	</div>
 </template>

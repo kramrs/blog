@@ -2,8 +2,8 @@ import Cookies from "js-cookie";
 
 const TokenKey: string = "Token";
 
-// 我网站的域名是www.qiuyu.wiki，去前面的www，改成自己的域名
-const domain: string = ".qiuyu.wiki";
+// 我网站的域名是www.kramrs.space，去前面的www，改成自己的域名
+const domain: string = ".kramrs.space";
 
 // token前缀
 export let token_prefix = "Bearer ";

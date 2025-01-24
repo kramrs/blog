@@ -25,7 +25,7 @@ public class Knife4jConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .protocols(Collections.singleton("https"))
-                .host("https://www.qiuyu.wiki")
+                .host("https://www.kramrs.space")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.kramrs.controller"))
@@ -37,7 +37,7 @@ public class Knife4jConfig {
         return new ApiInfoBuilder()
                 .title("blog API文档")
                 .description("基于SpringBoot + Vue3开发的博客项目")
-                .termsOfServiceUrl("https://www.qiuyu.wiki/api")
+                .termsOfServiceUrl("https://www.kramrs.space/api")
                 .contact(new Contact("kramrs", "https://github.com/kramrs", "kramrs@163.com"))
                 .version("1.0")
                 .build();
