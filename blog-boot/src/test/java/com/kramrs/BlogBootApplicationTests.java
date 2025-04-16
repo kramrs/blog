@@ -1,6 +1,7 @@
 package com.kramrs;
 
 import com.kramrs.model.vo.response.UserBackResp;
+import com.kramrs.utils.IpUtils;
 import com.kramrs.utils.RSAUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,4 +51,10 @@ class BlogBootApplicationTests {
         }
     }
 
+
+    @Test
+    void getIpSource() {
+        String ipSource = IpUtils.getIpSource("114.114.114.114");
+        System.out.println("IP地址" + ipSource);
+    }
 }

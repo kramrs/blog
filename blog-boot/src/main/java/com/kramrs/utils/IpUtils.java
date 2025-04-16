@@ -1,11 +1,13 @@
 package com.kramrs.utils;
 
-import com.kramrs.model.dto.BiliIpInfoDTO;
+import cn.hutool.extra.servlet.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.client.RestTemplate;
+import org.apache.commons.lang3.StringUtils;
+import org.lionsoul.ip2region.xdb.Searcher;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @Author: kramrs
@@ -14,29 +16,50 @@ import java.util.Map;
 @Slf4j
 public class IpUtils {
 
+    private static final Searcher SEARCHER;
+
+    static {
+        try (InputStream inputStream = IpUtils.class.getClassLoader()
+                .getResourceAsStream("ipdb/ip2region.xdb")) {
+            if (inputStream == null) {
+                throw new RuntimeException("ip2region.xdb file not found in resources");
+            }
+            byte[] cBuff = new byte[inputStream.available()];
+            inputStream.read(cBuff);
+            SEARCHER = Searcher.newWithBuffer(cBuff);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to initialize ip2region", e);
+        }
+    }
+
     /**
-     * 根据ip调用B站接口获取地理位置
+     * 获取用户真实IP地址
      *
-     * @param ip ip
+     * @param request 请求
+     * @return ip地址
+     */
+    public static String getIpAddress(HttpServletRequest request) {
+        return ServletUtil.getClientIP(request);
+    }
+
+
+    /**
+     * 根据ip从 ip2region.xdb 中获取地理位置
+     *
+     * @param ip ip地址
      * @return 地理位置
      */
     public static String getIpSource(String ip) {
         try {
-            Map<String, String> paraMap = new HashMap<>(1);
-            paraMap.put("ip", ip);
-            String uri = "https://api.live.bilibili.com/client/v1/Ip/getInfoNew?ip={ip}";
-            RestTemplate restTemplate = new RestTemplate();
-            BiliIpInfoDTO ipInfoDTO = restTemplate.getForObject(uri, BiliIpInfoDTO.class, paraMap);
-            if (ipInfoDTO != null && ipInfoDTO.getCode() == 0) {
-                BiliIpInfoDTO.IpInfoData ipInfoData = ipInfoDTO.getData();
-                if (ipInfoData != null) {
-                    return ipInfoData.getCountry() + "|" + ipInfoData.getProvince() + "|" + ipInfoData.getCity() + "|" + ipInfoData.getIsp();
-                }
+            String ipInfo = SEARCHER.search(ip);
+            if (!StringUtils.isEmpty(ipInfo)) {
+                ipInfo = ipInfo.replace("|0", "");
+                ipInfo = ipInfo.replace("0|", "");
             }
+            return ipInfo;
         } catch (Exception e) {
-            log.info("getIpSource fail, e", e);
-            return null;
+            log.error("getIpSource exception:, {}", e.getMessage());
         }
-        return null;
+        return "未知";
     }
 }

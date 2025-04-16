@@ -1,7 +1,6 @@
 package com.kramrs.aspect;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson2.JSON;
 import com.kramrs.annotation.OptLogger;
 import com.kramrs.entity.OperationLog;
@@ -105,7 +104,7 @@ public class OptLogAspect {
         // 请求用户昵称
         operationLog.setNickname("kramrs");
         // 操作ip和操作地址
-        String ip = ServletUtil.getClientIP(request);
+        String ip = IpUtils.getIpAddress(request);
         operationLog.setIpAddress(ip);
         operationLog.setIpSource(IpUtils.getIpSource(ip));
         // 执行耗时

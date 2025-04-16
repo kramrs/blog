@@ -1,6 +1,5 @@
 package com.kramrs.aspect;
 
-import cn.hutool.extra.servlet.ServletUtil;
 import com.kramrs.annotation.VisitLogger;
 import com.kramrs.entity.VisitLog;
 import com.kramrs.manager.AsyncManager;
@@ -51,7 +50,7 @@ public class VisitLogAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
         VisitLog visitLog = new VisitLog();
-        String ipAddress = ServletUtil.getClientIP(request);
+        String ipAddress = IpUtils.getIpAddress(request);
         String ipSource = IpUtils.getIpSource(ipAddress);
         // 解析browser和os
         Map<String, String> userAgentMap = UserAgentUtils.parseOsAndBrowser(request.getHeader("User-Agent"));
